@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { isPro, saveSubscription } from '../utils/storage';
+import { createCheckout } from '../utils/api';
 
 const STRIPE_PRICE_ID = import.meta.env.VITE_STRIPE_PRICE_ID || 'price_placeholder';
 
@@ -10,16 +11,11 @@ export default function Pricing({ onOpenChat }) {
   const handleUpgrade = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/.netlify/functions/create-checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          priceId: STRIPE_PRICE_ID,
-          successUrl: `${window.location.origin}?upgraded=true`,
-          cancelUrl: window.location.href,
-        }),
-      });
-      const data = await res.json();
+      const data = await createCheckout(
+        STRIPE_PRICE_ID,
+        `${window.location.origin}?upgraded=true`,
+        window.location.href
+      );
       if (data.url) {
         window.location.href = data.url;
       } else {
