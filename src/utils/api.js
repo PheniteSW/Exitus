@@ -20,6 +20,16 @@ export async function createCheckout(priceId, successUrl, cancelUrl) {
   return res.json();
 }
 
+export async function createPortalSession(customerId, returnUrl) {
+  const res = await fetch(`${API_URL}/api/customer-portal`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ customerId, returnUrl }),
+  });
+  if (!res.ok) throw new Error('Portal error');
+  return res.json();
+}
+
 export async function cancelSubscription(subscriptionId) {
   const res = await fetch(`${API_URL}/api/cancel-subscription`, {
     method: 'POST',

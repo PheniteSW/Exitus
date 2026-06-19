@@ -57,8 +57,8 @@ export default function Terms() {
             text: 'Paid plans are billed monthly through Stripe. You may cancel at any time — your access continues until the end of the billing period. Refunds are not guaranteed but may be considered on a case-by-case basis. Contact us via Discord for billing issues.',
           },
           {
-            title: '8. Privacy & Data Storage',
-            text: 'Exitus does not require account creation and does not collect personal information on our servers. Chat history and subscription status are stored locally on your own device using browser LocalStorage. We do not store, sell, or share your personal data. Clearing your browser data will erase your local history.',
+            title: '8. Privacy & Data Storage — Important Notice',
+            text: 'Exitus does not require account creation and does not collect personal information on our servers. Your chat history and paid subscription status are stored entirely on your own device using browser LocalStorage (similar to cookies). We have no server-side account for you. IMPORTANT: If you clear your browser history, cookies, or site data — your paid Nomad status will be erased from this device and you will appear as a free user. Your Stripe subscription continues to be billed normally, but you will need to contact us on Discord with proof of payment to restore access on that device. Subscription status does not transfer between browsers or devices. To protect your access, do not clear browser site data for this website. We do not store, sell, or share any personal data.',
           },
           {
             title: '9. External Links',

@@ -1,19 +1,38 @@
 import { useState } from 'react';
-import { isPro, saveSubscription } from '../utils/storage';
-import { createCheckout } from '../utils/api';
+import { isPro, getSubscription } from '../utils/storage';
+import { createCheckout, createPortalSession } from '../utils/api';
 
 const STRIPE_PRICE_ID = import.meta.env.VITE_STRIPE_PRICE_ID || 'price_placeholder';
 
 export default function Pricing({ onOpenChat }) {
   const [loading, setLoading] = useState(false);
+  const [portalLoading, setPortalLoading] = useState(false);
   const pro = isPro();
+  const sub = getSubscription();
+
+  const handleManageBilling = async () => {
+    const customerId = sub?.customerId;
+    if (!customerId) {
+      alert('Billing info not found on this device. Contact us on Discord for help.');
+      return;
+    }
+    setPortalLoading(true);
+    try {
+      const data = await createPortalSession(customerId, window.location.href);
+      if (data.url) window.location.href = data.url;
+    } catch {
+      alert('Could not open billing portal. Please try again.');
+    } finally {
+      setPortalLoading(false);
+    }
+  };
 
   const handleUpgrade = async () => {
     setLoading(true);
     try {
       const data = await createCheckout(
         STRIPE_PRICE_ID,
-        `${window.location.origin}?upgraded=true`,
+        `${window.location.origin}?upgraded=true&session_id={CHECKOUT_SESSION_ID}`,
         window.location.href
       );
       if (data.url) {
@@ -85,9 +104,19 @@ export default function Pricing({ onOpenChat }) {
               ))}
             </ul>
             {pro ? (
-              <button className="btn-plan btn-plan-primary" disabled style={{ opacity: 0.7 }}>
-                ✅ You're a Nomad member
-              </button>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <button className="btn-plan btn-plan-primary" disabled style={{ opacity: 0.7 }}>
+                  ✅ You're a Nomad member
+                </button>
+                <button
+                  className="btn-plan btn-plan-secondary"
+                  onClick={handleManageBilling}
+                  disabled={portalLoading}
+                  style={{ fontSize: '0.85rem' }}
+                >
+                  {portalLoading ? 'Opening...' : 'Manage / Cancel Subscription →'}
+                </button>
+              </div>
             ) : (
               <button className="btn-plan btn-plan-primary" onClick={handleUpgrade} disabled={loading}>
                 {loading ? 'Redirecting...' : 'Upgrade to Nomad →'}

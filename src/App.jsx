@@ -51,10 +51,34 @@ function AppInner() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('upgraded') === 'true') {
-      saveSubscription({ active: true, plan: 'nomad', activatedAt: new Date().toISOString() });
+      const sessionId = params.get('session_id');
       window.history.replaceState({}, '', window.location.pathname);
-      setChatOpen(true);
-      setInitialMessage('I just upgraded to Nomad! What should I do first to start planning my relocation?');
+
+      const activate = async () => {
+        let customerId = null;
+        let subscriptionId = null;
+        if (sessionId) {
+          try {
+            const API_URL = import.meta.env.VITE_API_URL || '';
+            const res = await fetch(`${API_URL}/api/checkout-session?session_id=${sessionId}`);
+            if (res.ok) {
+              const data = await res.json();
+              customerId = data.customerId;
+              subscriptionId = data.subscriptionId;
+            }
+          } catch { /* silently fall back */ }
+        }
+        saveSubscription({
+          active: true, plan: 'nomad',
+          activatedAt: new Date().toISOString(),
+          customerId,
+          subscriptionId,
+        });
+        setChatOpen(true);
+        setInitialMessage('I just upgraded to Nomad! What should I do first to start planning my relocation?');
+      };
+
+      activate();
     }
   }, []);
 

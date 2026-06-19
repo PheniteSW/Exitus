@@ -114,6 +114,33 @@ app.post('/api/create-checkout', async (req, res) => {
   }
 });
 
+app.get('/api/checkout-session', async (req, res) => {
+  try {
+    const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY);
+    const { session_id } = req.query;
+    const session = await stripeClient.checkout.sessions.retrieve(session_id);
+    res.json({ customerId: session.customer, subscriptionId: session.subscription, status: session.payment_status });
+  } catch (err) {
+    console.error('Session retrieve error:', err);
+    res.status(500).json({ error: 'Failed to retrieve session.' });
+  }
+});
+
+app.post('/api/customer-portal', async (req, res) => {
+  try {
+    const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY);
+    const { customerId, returnUrl } = req.body;
+    const session = await stripeClient.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: returnUrl,
+    });
+    res.json({ url: session.url });
+  } catch (err) {
+    console.error('Portal error:', err);
+    res.status(500).json({ error: 'Failed to create portal session.' });
+  }
+});
+
 app.post('/api/cancel-subscription', async (req, res) => {
   try {
     const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY);
