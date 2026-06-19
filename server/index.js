@@ -1,7 +1,7 @@
-const express = require('express');
-const cors = require('cors');
-const Anthropic = require('@anthropic-ai/sdk');
-const stripe = require('stripe');
+import express from 'express';
+import cors from 'cors';
+import Anthropic from '@anthropic-ai/sdk';
+import Stripe from 'stripe';
 
 const app = express();
 app.use(cors());
@@ -24,12 +24,11 @@ Popular destinations:
 - West Africa: Ghana, Senegal, Ivory Coast, Nigeria
 - Latin America: Mexico, Colombia, Panama, Ecuador
 - Middle East/North Africa: UAE, Morocco, Egypt, Jordan
-- South Asia: India, Sri Lanka, Georgia (Caucasus)
 - Island/African business hubs: Mauritius, Cape Verde, Rwanda
 
 2. TOP AFRICAN BUSINESS HUBS (Politically stable & least corrupt)
 - Mauritius: 10-year residency, modern banking, territorial tax. Premium visa requires: proof of remote income, proof of lease in Mauritius, commitment not to join Mauritius labor market.
-- Rwanda ("Singapore of Africa"): 5-year resident permit, Pan-African business hub, conference hub, sports hub. Can open a business in 24-48hrs via their online business hub. Least corrupt in Africa.
+- Rwanda ("Singapore of Africa"): 5-year resident permit, Pan-African business hub. Can open a business in 24-48hrs. Least corrupt in Africa.
 - Cape Verde: 1-2 year digital nomad visa (need $1,000/month income). Can switch into investor permit → 5-10 year resident permit.
 
 3. BANKING & MONEY TRANSFERS
@@ -78,10 +77,8 @@ WHAT YOU DO NOT DO:
 
 ESCALATION: Direct distressed users to USCIS.gov, IRS.gov/international, AILA.org, travel.state.gov`;
 
-// Health check
 app.get('/', (req, res) => res.json({ status: 'Emap API running' }));
 
-// Chat endpoint
 app.post('/api/chat', async (req, res) => {
   try {
     const { messages } = req.body;
@@ -99,10 +96,9 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-// Stripe checkout
 app.post('/api/create-checkout', async (req, res) => {
   try {
-    const stripeClient = stripe(process.env.STRIPE_SECRET_KEY);
+    const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY);
     const { priceId, successUrl, cancelUrl } = req.body;
     const session = await stripeClient.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -118,10 +114,9 @@ app.post('/api/create-checkout', async (req, res) => {
   }
 });
 
-// Cancel subscription
 app.post('/api/cancel-subscription', async (req, res) => {
   try {
-    const stripeClient = stripe(process.env.STRIPE_SECRET_KEY);
+    const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY);
     const { subscriptionId } = req.body;
     const cancelled = await stripeClient.subscriptions.update(subscriptionId, {
       cancel_at_period_end: true,
