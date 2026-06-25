@@ -85,7 +85,7 @@ export default function Pricing({ onOpenChat }) {
           <div className="price-card popular">
             <div className="popular-badge">⭐ Most Popular</div>
             <div className="price-tier">Nomad</div>
-            <div className="price-amount">$29<span>/mo</span></div>
+            <div className="price-amount">$9.99<span>/mo</span></div>
             <div className="price-desc">Everything you need to actually move</div>
             <ul className="price-features">
               {[

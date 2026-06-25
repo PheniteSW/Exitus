@@ -40,7 +40,7 @@ export default function Footer() {
             <div className="footer-heading">Pricing</div>
             <ul className="footer-links">
               <li><a href="#pricing">Free Explorer</a></li>
-              <li><a href="#pricing">Nomad ($29/mo)</a></li>
+              <li><a href="#pricing">Nomad ($9.99/mo)</a></li>
               <li><a href="https://discord.gg/TVJk5VqE" target="_blank" rel="noopener noreferrer">Community</a></li>
             </ul>
           </div>
