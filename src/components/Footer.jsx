@@ -49,7 +49,7 @@ export default function Footer() {
             <div className="footer-heading">Company</div>
             <ul className="footer-links">
               <li><a href="https://phenitesw.github.io/Phenite/" target="_blank" rel="noopener noreferrer">Landing Page</a></li>
-              <li><a href="https://phenitesw.github.io/ExitUsSignUp/" target="_blank" rel="noopener noreferrer">Sign Up</a></li>
+              <li><a href="https://phenitesw.github.io/ExitUsSignUp/" target="_blank" rel="noopener noreferrer">Sign Up for Updates</a></li>
             </ul>
           </div>
         </div>
