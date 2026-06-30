@@ -54,7 +54,7 @@ export default function Terms() {
           },
           {
             title: '7. Payments & Subscriptions',
-            text: 'Paid plans are billed monthly through Stripe. You may cancel at any time — your access continues until the end of the billing period. Refunds are not guaranteed but may be considered on a case-by-case basis. Contact us via Discord for billing issues.',
+            text: 'Paid plans are billed monthly through Stripe. You may cancel at any time — your access continues until the end of the billing period. Refunds are not guaranteed but may be considered on a case-by-case basis. Contact us at polySW@proton.me for billing issues.',
           },
           {
             title: '8. Privacy & Data Storage — Important Notice',
@@ -109,9 +109,9 @@ export default function Terms() {
 
         <p style={{ color: 'var(--gray)', fontSize: '0.85rem', textAlign: 'center', marginTop: 48 }}>
           EXIT US — Emap Agent v1.0 | For general informational purposes only.<br />
-          Questions? Join us on{' '}
-          <a href="https://discord.gg/TVJk5VqE" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--purple)' }}>
-            Discord
+          Questions? Email us at{' '}
+          <a href="mailto:polySW@proton.me" style={{ color: 'var(--purple)' }}>
+            polySW@proton.me
           </a>
         </p>
       </main>

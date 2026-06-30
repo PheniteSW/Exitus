@@ -130,7 +130,7 @@ export default function Pricing({ onOpenChat }) {
             <p style={{ color: 'var(--gray)', marginBottom: 16 }}>
               You have full access! Join the community:
             </p>
-            <a href="https://discord.gg/TVJk5VqE" target="_blank" rel="noopener noreferrer" className="discord-cta">
+            <a href="https://discord.gg/RrSpRpCAs" target="_blank" rel="noopener noreferrer" className="discord-cta">
               🎮 Join the EXIT US Discord
             </a>
           </div>

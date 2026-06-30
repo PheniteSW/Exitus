@@ -9,8 +9,8 @@ export default function Footer() {
               Helping people find the country that actually works for them.
               AI-powered relocation guidance for expats, digital nomads, and dreamers.
             </p>
-            <a href="https://discord.gg/TVJk5VqE" target="_blank" rel="noopener noreferrer" className="discord-cta">
-              🎮 Join our Discord
+            <a href="mailto:polySW@proton.me" className="discord-cta">
+              ✉️ Contact us
             </a>
           </div>
 
@@ -41,7 +41,6 @@ export default function Footer() {
             <ul className="footer-links">
               <li><a href="#pricing">Free Explorer</a></li>
               <li><a href="#pricing">Nomad ($9.99/mo)</a></li>
-              <li><a href="https://discord.gg/TVJk5VqE" target="_blank" rel="noopener noreferrer">Community</a></li>
             </ul>
           </div>
 
@@ -50,6 +49,9 @@ export default function Footer() {
             <ul className="footer-links">
               <li><a href="https://phenitesw.github.io/Phenite/" target="_blank" rel="noopener noreferrer">Landing Page</a></li>
               <li><a href="https://phenitesw.github.io/ExitUsSignUp/" target="_blank" rel="noopener noreferrer">Sign Up for Updates</a></li>
+              <li><a href="https://fazier.com/launches/exitus" target="_blank" rel="noopener noreferrer">Leave a Review (Fazier)</a></li>
+              <li><a href="https://www.producthunt.com/products/exitus/launches/exitus" target="_blank" rel="noopener noreferrer">Review on Product Hunt</a></li>
+              <li><a href="mailto:polySW@proton.me">Contact</a></li>
             </ul>
           </div>
         </div>

@@ -15,7 +15,7 @@ import Terms from './pages/Terms';
 import { saveSubscription } from './utils/storage';
 
 const EMAP_AVATAR = 'https://i.postimg.cc/25sLq1hS/Untitled-design-1-removebg-preview.png';
-const DISCORD_LINK = 'https://discord.gg/TVJk5VqE';
+const DISCORD_LINK = 'https://discord.gg/RrSpRpCAs';
 
 function WelcomeModal({ onClose }) {
   return (
