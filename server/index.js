@@ -104,6 +104,10 @@ app.post('/api/create-checkout', async (req, res) => {
       payment_method_types: ['card'],
       mode: 'subscription',
       line_items: [{ price: priceId, quantity: 1 }],
+      // 7-day free trial. Card is still collected up front (Stripe Checkout
+      // defaults to payment_method_collection: 'always' for trials), so the
+      // subscription auto-charges when the trial ends unless cancelled.
+      subscription_data: { trial_period_days: 7 },
       success_url: successUrl,
       cancel_url: cancelUrl,
     });

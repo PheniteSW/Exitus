@@ -135,7 +135,13 @@ section:nth-child(even) { background: var(--off-white); }
 .price-tier { font-size: 0.875rem; font-weight: 600; color: var(--purple); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
 .price-amount { font-size: 3rem; font-weight: 900; color: var(--dark); line-height: 1; margin-bottom: 4px; }
 .price-amount span { font-size: 1rem; font-weight: 400; color: var(--gray); }
-.price-desc { font-size: 0.9rem; color: var(--gray); margin-bottom: 32px; }
+.price-desc { font-size: 0.9rem; color: var(--gray); margin-bottom: 20px; }
+.cycle-toggle { display: flex; gap: 8px; margin-bottom: 16px; }
+.cycle-opt { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 12px 8px; border: 1.5px solid rgba(91,45,142,0.2); border-radius: 14px; background: var(--white); cursor: pointer; transition: all 0.2s; }
+.cycle-opt.active { border-color: var(--purple); background: rgba(91,45,142,0.06); box-shadow: 0 0 0 1px var(--purple) inset; }
+.cycle-label { font-weight: 700; font-size: 0.95rem; color: var(--dark); }
+.cycle-price { font-size: 0.8rem; color: var(--gray); }
+.cycle-badge { position: absolute; top: -10px; right: -6px; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--dark); font-size: 0.6rem; font-weight: 800; padding: 2px 8px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.03em; }
 .price-features { list-style: none; text-align: left; margin-bottom: 32px; display: flex; flex-direction: column; gap: 12px; }
 .price-features li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--dark); }
 .pf-check { color: var(--success); font-weight: 700; }

@@ -23,6 +23,8 @@ exports.handler = async (event) => {
       payment_method_types: ["card"],
       mode: "subscription",
       line_items: [{ price: priceId, quantity: 1 }],
+      // 7-day free trial; card still collected up front.
+      subscription_data: { trial_period_days: 7 },
       success_url: successUrl,
       cancel_url: cancelUrl,
     });
