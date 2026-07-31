@@ -69,7 +69,14 @@ export function AuthProvider({ children }) {
 
     signUp: async (email, password) => {
       if (!supabase) return { error: { message: 'Auth is not configured yet.' } };
-      const { data, error } = await supabase.auth.signUp({ email, password });
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        // After they click the confirmation email, land back with a marker so
+        // we can show a clear "email confirmed" message instead of a silent
+        // drop onto the homepage.
+        options: { emailRedirectTo: `${window.location.origin}?confirmed=true` },
+      });
       // If email confirmation is ON, data.session is null and the user must
       // click a link before they can log in.
       return { data, error, needsConfirmation: !error && !data.session };

@@ -85,6 +85,38 @@ function WelcomeModal({ onClose }) {
   );
 }
 
+function ConfirmedModal({ onClose }) {
+  return (
+    <div style={{
+      position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.7)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24,
+    }}>
+      <div style={{
+        background: 'white', borderRadius: 20, padding: 36, maxWidth: 400, width: '100%',
+        textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+      }}>
+        <div style={{ fontSize: '3rem', marginBottom: 12 }}>✅</div>
+        <h2 style={{ color: 'var(--purple-dark)', fontWeight: 800, fontSize: '1.4rem', marginBottom: 8 }}>
+          Email confirmed!
+        </h2>
+        <p style={{ color: '#555', marginBottom: 24, lineHeight: 1.6 }}>
+          You're all set and logged in. Welcome to EXIT US — let's find your next chapter.
+        </p>
+        <button
+          onClick={onClose}
+          style={{
+            width: '100%', padding: '13px', border: 'none', borderRadius: 50, cursor: 'pointer',
+            background: 'linear-gradient(135deg, var(--purple), var(--purple-light))',
+            color: 'white', fontWeight: 700, fontSize: '1rem',
+          }}
+        >
+          Let's go →
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function HomePage({ chatOpen, setChatOpen, initialMessage, setInitialMessage, onOpenAuth }) {
   const openChat = (msg = '') => {
     setInitialMessage(msg);
@@ -116,9 +148,22 @@ function AppInner() {
   const [initialMessage, setInitialMessage] = useState('');
   const [showNotif, setShowNotif] = useState(true);
   const [showWelcome, setShowWelcome] = useState(false);
+  const [showConfirmed, setShowConfirmed] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
 
   const isTermsPage = location.pathname === '/terms';
+
+  // Landed here from the signup confirmation email (?confirmed=true) → show a
+  // clear success message instead of a silent drop onto the homepage.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('confirmed') === 'true') {
+      setShowConfirmed(true);
+      const url = new URL(window.location.href);
+      url.searchParams.delete('confirmed');
+      window.history.replaceState({}, '', url.pathname + url.search);
+    }
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -168,6 +213,7 @@ function AppInner() {
   return (
     <>
       {showWelcome && <WelcomeModal onClose={handleWelcomeClose} />}
+      {showConfirmed && <ConfirmedModal onClose={() => setShowConfirmed(false)} />}
       {/* Password-recovery link lands here → force the "set new password" modal */}
       {recovery && <AuthModal open onClose={() => {}} initialMode="update" />}
       <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} initialMode="login" />
