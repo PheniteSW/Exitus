@@ -14,7 +14,6 @@ import Footer from './components/Footer';
 import Terms from './pages/Terms';
 import AuthModal from './components/AuthModal';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { saveSubscription } from './utils/storage';
 
 const EMAP_AVATAR = 'https://i.postimg.cc/25sLq1hS/Untitled-design-1-removebg-preview.png';
 const DISCORD_LINK = 'https://discord.gg/RrSpRpCAs';
@@ -134,7 +133,7 @@ function HomePage({ chatOpen, setChatOpen, initialMessage, setInitialMessage, on
         <SafetyAlerts />
         <Banking />
         <VisaLinks />
-        <Pricing onOpenChat={() => openChat()} />
+        <Pricing onOpenChat={() => openChat()} onOpenAuth={onOpenAuth} />
       </main>
       <Footer />
     </>
@@ -143,7 +142,7 @@ function HomePage({ chatOpen, setChatOpen, initialMessage, setInitialMessage, on
 
 function AppInner() {
   const location = useLocation();
-  const { recovery } = useAuth();
+  const { recovery, refreshSubscription } = useAuth();
   const [chatOpen, setChatOpen] = useState(false);
   const [initialMessage, setInitialMessage] = useState('');
   const [showNotif, setShowNotif] = useState(true);
@@ -168,35 +167,19 @@ function AppInner() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('upgraded') === 'true') {
-      const sessionId = params.get('session_id');
       window.history.replaceState({}, '', window.location.pathname);
-
-      const activate = async () => {
-        let customerId = null;
-        let subscriptionId = null;
-        if (sessionId) {
-          try {
-            const API_URL = import.meta.env.VITE_API_URL || '';
-            const res = await fetch(`${API_URL}/api/checkout-session?session_id=${sessionId}`);
-            if (res.ok) {
-              const data = await res.json();
-              customerId = data.customerId;
-              subscriptionId = data.subscriptionId;
-            }
-          } catch { /* silently fall back */ }
-        }
-        saveSubscription({
-          active: true, plan: 'nomad',
-          activatedAt: new Date().toISOString(),
-          customerId,
-          subscriptionId,
-        });
-        setShowWelcome(true);
-      };
-
-      activate();
+      setShowWelcome(true);
+      // The Stripe webhook writes the subscription row a few seconds after
+      // checkout, so poll a few times to pick it up and flip the UI to "pro".
+      let tries = 0;
+      const poll = setInterval(() => {
+        tries += 1;
+        refreshSubscription();
+        if (tries >= 5) clearInterval(poll);
+      }, 2000);
+      return () => clearInterval(poll);
     }
-  }, []);
+  }, [refreshSubscription]);
 
   const openChat = (msg = '') => {
     setInitialMessage(msg);

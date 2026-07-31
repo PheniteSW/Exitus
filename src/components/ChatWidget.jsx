@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import {
   getChatHistory, saveChatHistory, clearChatHistory,
-  getDailyCount, incrementDailyCount, FREE_DAILY_LIMIT, isPro,
+  getDailyCount, incrementDailyCount, FREE_DAILY_LIMIT,
 } from '../utils/storage';
 import { sendChatMessage } from '../utils/api';
+import { useAuth } from '../context/AuthContext';
 
 const EMAP_AVATAR = 'https://i.postimg.cc/25sLq1hS/Untitled-design-1-removebg-preview.png';
 const DISCLAIMER_SEEN_KEY = 'exitus_disclaimer_seen';
@@ -69,6 +70,7 @@ function DisclaimerModal({ onAccept }) {
 }
 
 export default function ChatWidget({ open, onClose, initialMessage }) {
+  const { isProAccount } = useAuth();
   const [messages, setMessages] = useState(() => {
     const saved = getChatHistory();
     return saved.length ? saved : [OPENING_MESSAGE];
@@ -113,8 +115,7 @@ export default function ChatWidget({ open, onClose, initialMessage }) {
     const msg = (text || input).trim();
     if (!msg || loading) return;
 
-    const pro = isPro();
-    if (!pro && getDailyCount() >= FREE_DAILY_LIMIT) return;
+    if (!isProAccount && getDailyCount() >= FREE_DAILY_LIMIT) return;
 
     const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const userMsg = { role: 'user', content: msg, time };
@@ -168,8 +169,7 @@ export default function ChatWidget({ open, onClose, initialMessage }) {
     sentInitial.current = false;
   };
 
-  const pro = isPro();
-  const atLimit = !pro && dailyCount >= FREE_DAILY_LIMIT;
+  const atLimit = !isProAccount && dailyCount >= FREE_DAILY_LIMIT;
 
   if (!open) return null;
 

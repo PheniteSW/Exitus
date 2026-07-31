@@ -1,26 +1,27 @@
 import { useState } from 'react';
-import { isPro, getSubscription } from '../utils/storage';
 import { createCheckout, createPortalSession } from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 
 const STRIPE_PRICE_MONTHLY = import.meta.env.VITE_STRIPE_PRICE_ID || 'price_placeholder';
 const STRIPE_PRICE_ANNUAL = import.meta.env.VITE_STRIPE_PRICE_ANNUAL || 'price_placeholder';
 
-export default function Pricing({ onOpenChat }) {
-  const { user } = useAuth();
+export default function Pricing({ onOpenChat, onOpenAuth }) {
+  const { user, isProAccount, subscription } = useAuth();
   const [loading, setLoading] = useState(false);
   const [portalLoading, setPortalLoading] = useState(false);
   const [cycle, setCycle] = useState('annual'); // 'annual' pre-selected (best value)
-  const pro = isPro();
-  const sub = getSubscription();
+  // Pro status now comes from the user's Supabase subscription row (kept in
+  // sync by the Stripe webhook) — not localStorage — so it's correct across
+  // devices and reflects real cancellations.
+  const pro = isProAccount;
 
   const isAnnual = cycle === 'annual';
   const selectedPriceId = isAnnual ? STRIPE_PRICE_ANNUAL : STRIPE_PRICE_MONTHLY;
 
   const handleManageBilling = async () => {
-    const customerId = sub?.customerId;
+    const customerId = subscription?.stripe_customer_id;
     if (!customerId) {
-      alert('Billing info not found on this device. Contact us on Discord for help.');
+      alert('Billing info not found for your account. Please contact us for help.');
       return;
     }
     setPortalLoading(true);
@@ -35,6 +36,12 @@ export default function Pricing({ onOpenChat }) {
   };
 
   const handleUpgrade = async () => {
+    // Require an account so the payment maps to a user and access can follow
+    // them across devices (and be revoked on cancellation).
+    if (!user) {
+      onOpenAuth?.();
+      return;
+    }
     setLoading(true);
     try {
       const data = await createCheckout(
@@ -191,8 +198,8 @@ export default function Pricing({ onOpenChat }) {
         )}
 
         <p style={{ textAlign: 'center', marginTop: 32, fontSize: '0.8rem', color: 'var(--gray)' }}>
-          Payments secured by Stripe. Cancel anytime from your subscription dashboard.
-          No accounts required — all data saved locally on your device.
+          Payments secured by Stripe. Cancel anytime from your account — your
+          access follows you on any device you log in from.
         </p>
       </div>
     </section>

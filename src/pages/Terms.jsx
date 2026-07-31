@@ -54,11 +54,11 @@ export default function Terms() {
           },
           {
             title: '7. Payments & Subscriptions',
-            text: 'Paid plans are billed monthly through Stripe. You may cancel at any time — your access continues until the end of the billing period. Refunds are not guaranteed but may be considered on a case-by-case basis. Contact us at polySW@proton.me for billing issues.',
+            text: 'The paid Nomad plan is available monthly or annually through Stripe, and starts with a 7-day free trial (your card is collected up front and is charged when the trial ends unless you cancel first). You may cancel at any time from your account using the self-service billing portal — your access continues until the end of the period you have paid for. Refunds are not guaranteed but may be considered on a case-by-case basis. Contact us at polySW@proton.me for billing issues.',
           },
           {
-            title: '8. Privacy & Data Storage — Important Notice',
-            text: 'Exitus does not require account creation and does not collect personal information on our servers. Your chat history and paid subscription status are stored entirely on your own device using browser LocalStorage (similar to cookies). We have no server-side account for you. IMPORTANT: If you clear your browser history, cookies, or site data — your paid Nomad status will be erased from this device and you will appear as a free user. Your Stripe subscription continues to be billed normally, but you will need to contact us on Discord with proof of payment to restore access on that device. Subscription status does not transfer between browsers or devices. To protect your access, do not clear browser site data for this website. We do not store, sell, or share any personal data.',
+            title: '8. Accounts, Privacy & Data',
+            text: 'Creating a Nomad account requires an email address and password, managed securely through our authentication provider (Supabase). Your subscription status is stored on our servers and tied to your account, so your access works across any device you log in from. We use Stripe to process payments; we never see or store your full card details. Your chat conversations with Emap are stored locally in your own browser for your convenience. We do not sell or share your personal data. You may request deletion of your account by contacting us at polySW@proton.me.',
           },
           {
             title: '9. External Links',
