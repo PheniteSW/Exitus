@@ -2,9 +2,26 @@ import express from 'express';
 import cors from 'cors';
 import Anthropic from '@anthropic-ai/sdk';
 import Stripe from 'stripe';
+import { createClient } from '@supabase/supabase-js';
+
+// Server-side Supabase client using the SECRET key. This bypasses row-level
+// security so the Stripe webhook can write any user's subscription row.
+// Guarded: null when env vars aren't set, so the app still boots without them.
+const supabaseAdmin =
+  process.env.SUPABASE_URL && process.env.SUPABASE_SECRET_KEY
+    ? createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SECRET_KEY, {
+        auth: { persistSession: false, autoRefreshToken: false },
+      })
+    : null;
 
 const app = express();
 app.use(cors());
+
+// The Stripe webhook must verify the raw request body against the signature,
+// so it is registered with express.raw() BEFORE express.json() — otherwise the
+// JSON parser consumes the body and signature verification fails.
+app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), stripeWebhookHandler);
+
 app.use(express.json());
 
 const SYSTEM_PROMPT = `You are Emap, the friendly relocation guide for EXIT US — a platform that helps Americans (and Westerners) explore living outside the West. You appear as a cheerful animated world-map character wearing an explorer hat, holding a globe and a passport. You are warm, knowledgeable, non-judgmental, and genuinely excited to help people discover their next chapter abroad.
@@ -99,7 +116,10 @@ app.post('/api/chat', async (req, res) => {
 app.post('/api/create-checkout', async (req, res) => {
   try {
     const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY);
-    const { priceId, successUrl, cancelUrl } = req.body;
+    const { priceId, successUrl, cancelUrl, userId, email } = req.body;
+    // When the buyer is logged in, stamp their Supabase user id onto the
+    // session AND the subscription so the webhook can map payment -> account.
+    const meta = userId ? { supabase_user_id: userId } : {};
     const session = await stripeClient.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'subscription',
@@ -107,7 +127,10 @@ app.post('/api/create-checkout', async (req, res) => {
       // 7-day free trial. Card is still collected up front (Stripe Checkout
       // defaults to payment_method_collection: 'always' for trials), so the
       // subscription auto-charges when the trial ends unless cancelled.
-      subscription_data: { trial_period_days: 7 },
+      subscription_data: { trial_period_days: 7, metadata: meta },
+      client_reference_id: userId || undefined,
+      customer_email: email || undefined,
+      metadata: meta,
       success_url: successUrl,
       cancel_url: cancelUrl,
     });
@@ -158,6 +181,80 @@ app.post('/api/cancel-subscription', async (req, res) => {
     res.status(500).json({ error: 'Failed to cancel subscription.' });
   }
 });
+
+// Writes/updates a user's row in the Supabase `subscriptions` table.
+async function upsertSubscription(row) {
+  if (!supabaseAdmin) {
+    console.warn('Supabase admin not configured — skipping subscription write.');
+    return;
+  }
+  const { error } = await supabaseAdmin
+    .from('subscriptions')
+    .upsert({ ...row, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
+  if (error) console.error('Supabase upsert error:', error.message);
+}
+
+// Handles Stripe webhook events. Verifies the signature, then keeps the
+// Supabase subscriptions table in sync with what Stripe says — this is what
+// makes "only real payers keep access" possible and enables revocation.
+async function stripeWebhookHandler(req, res) {
+  const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY);
+  const sig = req.headers['stripe-signature'];
+
+  let event;
+  try {
+    event = stripeClient.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+  } catch (err) {
+    console.error('Webhook signature verification failed:', err.message);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  try {
+    switch (event.type) {
+      case 'checkout.session.completed': {
+        const session = event.data.object;
+        const userId = session.client_reference_id || session.metadata?.supabase_user_id;
+        if (userId && session.subscription) {
+          const sub = await stripeClient.subscriptions.retrieve(session.subscription);
+          await upsertSubscription({
+            user_id: userId,
+            status: sub.status, // 'trialing' during the 7-day trial, then 'active'
+            plan: 'nomad',
+            stripe_customer_id: session.customer,
+            stripe_subscription_id: sub.id,
+            current_period_end: sub.current_period_end
+              ? new Date(sub.current_period_end * 1000).toISOString()
+              : null,
+          });
+        }
+        break;
+      }
+      case 'customer.subscription.updated':
+      case 'customer.subscription.deleted': {
+        const sub = event.data.object;
+        const userId = sub.metadata?.supabase_user_id;
+        if (userId) {
+          await upsertSubscription({
+            user_id: userId,
+            status: event.type === 'customer.subscription.deleted' ? 'canceled' : sub.status,
+            stripe_customer_id: sub.customer,
+            stripe_subscription_id: sub.id,
+            current_period_end: sub.current_period_end
+              ? new Date(sub.current_period_end * 1000).toISOString()
+              : null,
+          });
+        }
+        break;
+      }
+      default:
+        break;
+    }
+    res.json({ received: true });
+  } catch (err) {
+    console.error('Webhook handler error:', err);
+    res.status(500).json({ error: 'Webhook handler failed' });
+  }
+}
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Emap API running on port ${PORT}`));

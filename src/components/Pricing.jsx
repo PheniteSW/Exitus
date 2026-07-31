@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { isPro, getSubscription } from '../utils/storage';
 import { createCheckout, createPortalSession } from '../utils/api';
+import { useAuth } from '../context/AuthContext';
 
 const STRIPE_PRICE_MONTHLY = import.meta.env.VITE_STRIPE_PRICE_ID || 'price_placeholder';
 const STRIPE_PRICE_ANNUAL = import.meta.env.VITE_STRIPE_PRICE_ANNUAL || 'price_placeholder';
 
 export default function Pricing({ onOpenChat }) {
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [portalLoading, setPortalLoading] = useState(false);
   const [cycle, setCycle] = useState('annual'); // 'annual' pre-selected (best value)
@@ -38,7 +40,9 @@ export default function Pricing({ onOpenChat }) {
       const data = await createCheckout(
         selectedPriceId,
         `${window.location.origin}?upgraded=true&session_id={CHECKOUT_SESSION_ID}`,
-        window.location.href
+        window.location.href,
+        user?.id,
+        user?.email
       );
       if (data.url) {
         window.location.href = data.url;

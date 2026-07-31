@@ -10,11 +10,11 @@ export async function sendChatMessage(messages) {
   return res.json();
 }
 
-export async function createCheckout(priceId, successUrl, cancelUrl) {
+export async function createCheckout(priceId, successUrl, cancelUrl, userId, email) {
   const res = await fetch(`${API_URL}/api/create-checkout`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ priceId, successUrl, cancelUrl }),
+    body: JSON.stringify({ priceId, successUrl, cancelUrl, userId, email }),
   });
   if (!res.ok) throw new Error('Checkout error');
   return res.json();
