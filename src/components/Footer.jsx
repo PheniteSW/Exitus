@@ -9,9 +9,9 @@ export default function Footer() {
               Helping people find the country that actually works for them.
               AI-powered relocation guidance for expats, digital nomads, and dreamers.
             </p>
-            <a href="mailto:polySW@proton.me" className="discord-cta">
-              ✉️ Contact us
-            </a>
+            <p style={{ marginTop: 12, fontSize: '0.9rem' }}>
+              ✉️ <a href="mailto:polySW@proton.me" style={{ color: 'var(--purple)', fontWeight: 600 }}>polySW@proton.me</a>
+            </p>
           </div>
 
           <div>
