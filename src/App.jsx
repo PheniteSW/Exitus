@@ -12,6 +12,8 @@ import Pricing from './components/Pricing';
 import ChatWidget from './components/ChatWidget';
 import Footer from './components/Footer';
 import Terms from './pages/Terms';
+import AuthModal from './components/AuthModal';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { saveSubscription } from './utils/storage';
 
 const EMAP_AVATAR = 'https://i.postimg.cc/25sLq1hS/Untitled-design-1-removebg-preview.png';
@@ -83,7 +85,7 @@ function WelcomeModal({ onClose }) {
   );
 }
 
-function HomePage({ chatOpen, setChatOpen, initialMessage, setInitialMessage }) {
+function HomePage({ chatOpen, setChatOpen, initialMessage, setInitialMessage, onOpenAuth }) {
   const openChat = (msg = '') => {
     setInitialMessage(msg);
     setChatOpen(true);
@@ -91,7 +93,7 @@ function HomePage({ chatOpen, setChatOpen, initialMessage, setInitialMessage }) 
 
   return (
     <>
-      <Navbar onOpenChat={() => openChat()} />
+      <Navbar onOpenChat={() => openChat()} onOpenAuth={onOpenAuth} />
       <main>
         <Hero onOpenChat={() => openChat()} />
         <Features />
@@ -109,10 +111,12 @@ function HomePage({ chatOpen, setChatOpen, initialMessage, setInitialMessage }) 
 
 function AppInner() {
   const location = useLocation();
+  const { recovery } = useAuth();
   const [chatOpen, setChatOpen] = useState(false);
   const [initialMessage, setInitialMessage] = useState('');
   const [showNotif, setShowNotif] = useState(true);
   const [showWelcome, setShowWelcome] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
 
   const isTermsPage = location.pathname === '/terms';
 
@@ -164,6 +168,9 @@ function AppInner() {
   return (
     <>
       {showWelcome && <WelcomeModal onClose={handleWelcomeClose} />}
+      {/* Password-recovery link lands here → force the "set new password" modal */}
+      {recovery && <AuthModal open onClose={() => {}} initialMode="update" />}
+      <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} initialMode="login" />
       <Routes>
         <Route
           path="/"
@@ -173,6 +180,7 @@ function AppInner() {
               setChatOpen={setChatOpen}
               initialMessage={initialMessage}
               setInitialMessage={setInitialMessage}
+              onOpenAuth={() => setAuthOpen(true)}
             />
           }
         />
@@ -206,8 +214,10 @@ function AppInner() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AppInner />
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <AppInner />
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
