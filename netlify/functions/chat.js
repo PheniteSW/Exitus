@@ -99,7 +99,9 @@ ESCALATION — If user expresses distress or asks about things outside your scop
 
 ALWAYS end responses with: "This is general advice — consult official sources and immigration lawyers."
 
-EXIT US — Emap Agent v1.0 | For general informational purposes only.`;
+EXIT US — Emap Agent v1.0 | For general informational purposes only.
+
+CURRENT INFO: For anything time-sensitive — safety/conflict situations, political unrest, visa rule changes, exchange rates, or "right now" questions — use the web_search tool rather than answering from memory, since your training data has a cutoff and conditions change. Cite what you find and mention how recent it is.`;
 
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
@@ -116,18 +118,28 @@ exports.handler = async (event) => {
     const { messages } = JSON.parse(event.body);
 
     const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+    const today = new Date().toISOString().slice(0, 10);
 
     const response = await client.messages.create({
       model: "claude-haiku-4-5-20251001",
       max_tokens: 1024,
-      system: SYSTEM_PROMPT,
+      system: `${SYSTEM_PROMPT}\n\nToday's date is ${today}.`,
       messages,
+      tools: [{ type: "web_search_20250305", name: "web_search", max_uses: 3 }],
     });
+
+    // With web search enabled, content can include tool-use/result blocks
+    // alongside text blocks, so join every text block rather than assuming
+    // the first block is the reply.
+    const content = response.content
+      .filter((block) => block.type === "text")
+      .map((block) => block.text)
+      .join("\n\n");
 
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ content: response.content[0].text }),
+      body: JSON.stringify({ content }),
     };
   } catch (err) {
     console.error(err);
