@@ -3,7 +3,7 @@ export default function DemoSection() {
     <section id="demo" style={{ background: 'var(--off-white)' }}>
       <div className="container">
         <div className="section-header">
-          <h2>See Exitus in Action</h2>
+          <h2>Demo / How to Use Exitus</h2>
           <p>New here? Watch these quick demos to see how Emap and Exitus work.</p>
         </div>
         <div
