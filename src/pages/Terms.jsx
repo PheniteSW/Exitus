@@ -24,7 +24,7 @@ export default function Terms() {
           Terms of Use & Disclaimer
         </h1>
         <p style={{ color: 'var(--gray)', marginBottom: 48, fontSize: '0.9rem' }}>
-          Last updated: June 2026
+          Last updated: August 2026
         </p>
 
         {[
@@ -61,19 +61,23 @@ export default function Terms() {
             text: 'Creating a Nomad account requires an email address and password, managed securely through our authentication provider (Supabase). Your subscription status is stored on our servers and tied to your account, so your access works across any device you log in from. We use Stripe to process payments; we never see or store your full card details. Your chat conversations with Emap are stored locally in your own browser for your convenience. We do not sell or share your personal data. You may request deletion of your account by contacting us at polySW@proton.me.',
           },
           {
-            title: '9. External Links',
+            title: '9. Cookies & Analytics',
+            text: 'We use Google Analytics (GA4) to understand how visitors use Exitus — such as page views, session activity, approximate location (country/city, derived from IP address), device type, and referring site. Google Analytics uses cookies and similar technologies to collect this information. This data is aggregated and used only to improve the site; we do not use it to individually identify you, and we do not sell it. You can opt out of Google Analytics tracking using the Google Analytics Opt-out Browser Add-on, or by adjusting your browser\'s cookie settings to block third-party cookies. For more on how Google handles this data, see Google\'s Privacy Policy at policies.google.com/privacy.',
+          },
+          {
+            title: '10. External Links',
             text: 'We link to third-party government websites, visa portals, and services for your convenience. We are not responsible for the content, accuracy, availability, or privacy policies of external sites. Links to government portals are provided as-is — always navigate directly to official sites when in doubt.',
           },
           {
-            title: '10. Prohibited Uses',
+            title: '11. Prohibited Uses',
             text: 'You agree not to use Exitus to engage in or plan any illegal activity, including but not limited to: working on tourist visas where prohibited, tax evasion, or circumventing immigration law. We do not encourage or support any illegal activity.',
           },
           {
-            title: '11. Escalation — When to Seek Real Help',
+            title: '12. Escalation — When to Seek Real Help',
             text: 'If you are in danger, facing deportation, or need urgent immigration assistance, please contact: USCIS.gov for immigration status questions, IRS.gov/international for US tax obligations abroad (FBAR, FATCA), a licensed immigration attorney via AILA.org, or the US State Department emergency line for citizens abroad.',
           },
           {
-            title: '12. Changes to These Terms',
+            title: '13. Changes to These Terms',
             text: 'We may update these terms at any time without prior notice. Continued use of the site after changes are posted constitutes your acceptance of the updated terms. Check this page periodically.',
           },
         ].map((section, i) => (
