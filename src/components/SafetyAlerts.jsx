@@ -43,7 +43,7 @@ export default function SafetyAlerts() {
       <div className="container">
         <div className="section-header">
           <h2>Safety & Risk Alerts</h2>
-          <p>Know before you go. Emap keeps you informed on real risks — not just headlines.</p>
+          <p>Know before you go. Emap keeps you informed on real risks, not just headlines.</p>
         </div>
         <div className="alerts-grid">
           {alerts.map((a, i) => (

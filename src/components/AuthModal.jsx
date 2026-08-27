@@ -43,7 +43,7 @@ export default function AuthModal({ open, onClose, initialMode = 'login' }) {
         const { error, needsConfirmation } = await signUp(email.trim(), password);
         if (error) setError(error.message);
         else if (needsConfirmation)
-          setNotice('Check your inbox — click the confirmation link to finish creating your account.');
+          setNotice('Check your inbox, click the confirmation link to finish creating your account.');
         else onClose();
       } else if (mode === 'forgot') {
         const { error } = await resetPassword(email.trim());

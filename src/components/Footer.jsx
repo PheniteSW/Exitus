@@ -57,7 +57,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Exitus. General information only — not legal or financial advice.</span>
+          <span>© {new Date().getFullYear()} Exitus. General information only, not legal or financial advice.</span>
           <span>Built for dreamers who want to live on their own terms. 🌍</span>
         </div>
       </div>

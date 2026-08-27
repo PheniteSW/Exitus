@@ -48,8 +48,8 @@ function WelcomeModal({ onClose }) {
             🎮 Your Nomad Community
           </div>
           <div style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.85rem', marginBottom: 14 }}>
-            Join the private EXIT US Discord — connect with other Nomads planning their move abroad.
-            <br /><strong style={{ color: 'white' }}>Save this link — you'll need it!</strong>
+            Join the private EXIT US Discord, connect with other Nomads planning their move abroad.
+            <br /><strong style={{ color: 'white' }}>Save this link, you'll need it!</strong>
           </div>
           <a
             href={DISCORD_LINK}
@@ -66,7 +66,7 @@ function WelcomeModal({ onClose }) {
         </div>
 
         <p style={{ color: '#888', fontSize: '0.8rem', marginBottom: 20 }}>
-          Bookmark or copy the link above — this screen won't show again.
+          Bookmark or copy the link above, this screen won't show again.
         </p>
 
         <button
@@ -100,7 +100,7 @@ function ConfirmedModal({ onClose }) {
           Email confirmed!
         </h2>
         <p style={{ color: '#555', marginBottom: 24, lineHeight: 1.6 }}>
-          You're all set and logged in. Welcome to EXIT US — let's find your next chapter.
+          You're all set and logged in. Welcome to EXIT US, let's find your next chapter.
         </p>
         <button
           onClick={onClose}

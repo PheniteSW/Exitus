@@ -75,7 +75,7 @@ export default function Pricing({ onOpenChat, onOpenAuth }) {
           <div className="price-card">
             <div className="price-tier">Explorer</div>
             <div className="price-amount">Free</div>
-            <div className="price-desc">Start exploring — no signup required</div>
+            <div className="price-desc">Start exploring, no signup required</div>
             <ul className="price-features">
               {[
                 [true, '5 Emap chats per day'],
@@ -99,7 +99,7 @@ export default function Pricing({ onOpenChat, onOpenAuth }) {
 
           {/* Pro */}
           <div className="price-card popular">
-            <div className="popular-badge">⭐ Best Value — Save 33%</div>
+            <div className="popular-badge">⭐ Best Value, Save 33%</div>
             <div className="price-tier">Nomad</div>
             <div className="price-desc">Everything you need to actually move</div>
 
@@ -198,7 +198,7 @@ export default function Pricing({ onOpenChat, onOpenAuth }) {
         )}
 
         <p style={{ textAlign: 'center', marginTop: 32, fontSize: '0.8rem', color: 'var(--gray)' }}>
-          Payments secured by Stripe. Cancel anytime from your account — your
+          Payments secured by Stripe. Cancel anytime from your account, your
           access follows you on any device you log in from.
         </p>
       </div>

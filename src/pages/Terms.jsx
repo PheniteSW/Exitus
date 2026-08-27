@@ -34,11 +34,11 @@ export default function Terms() {
           },
           {
             title: '2. AI-Generated Guidance (Emap)',
-            text: "Emap is powered by artificial intelligence and may produce responses that are incomplete, outdated, or incorrect. Treat all Emap responses as a starting point for your own research — not a final answer or a guarantee. Emap's knowledge has a training cutoff date and may not reflect current laws, visa rules, or country conditions.",
+            text: "Emap is powered by artificial intelligence and may produce responses that are incomplete, outdated, or incorrect. Treat all Emap responses as a starting point for your own research, not a final answer or a guarantee. Emap's knowledge has a training cutoff date and may not reflect current laws, visa rules, or country conditions.",
           },
           {
             title: '3. No Attorney-Client Relationship',
-            text: 'Use of this website does not create an attorney-client relationship, financial advisor relationship, or any other professional relationship. Emap is an AI assistant — not a licensed professional of any kind.',
+            text: 'Use of this website does not create an attorney-client relationship, financial advisor relationship, or any other professional relationship. Emap is an AI assistant, not a licensed professional of any kind.',
           },
           {
             title: '4. Accuracy of Information',
@@ -54,7 +54,7 @@ export default function Terms() {
           },
           {
             title: '7. Payments & Subscriptions',
-            text: 'The paid Nomad plan is available monthly or annually through Stripe, and starts with a 7-day free trial (your card is collected up front and is charged when the trial ends unless you cancel first). You may cancel at any time from your account using the self-service billing portal — your access continues until the end of the period you have paid for. Refunds are not guaranteed but may be considered on a case-by-case basis. Contact us at polySW@proton.me for billing issues.',
+            text: 'The paid Nomad plan is available monthly or annually through Stripe, and starts with a 7-day free trial (your card is collected up front and is charged when the trial ends unless you cancel first). You may cancel at any time from your account using the self-service billing portal, your access continues until the end of the period you have paid for. Refunds are not guaranteed but may be considered on a case-by-case basis. Contact us at polySW@proton.me for billing issues.',
           },
           {
             title: '8. Accounts, Privacy & Data',
@@ -62,18 +62,18 @@ export default function Terms() {
           },
           {
             title: '9. Cookies & Analytics',
-            text: 'We use Google Analytics (GA4) to understand how visitors use Exitus — such as page views, session activity, approximate location (country/city, derived from IP address), device type, and referring site. Google Analytics uses cookies and similar technologies to collect this information. This data is aggregated and used only to improve the site; we do not use it to individually identify you, and we do not sell it. You can opt out of Google Analytics tracking using the Google Analytics Opt-out Browser Add-on, or by adjusting your browser\'s cookie settings to block third-party cookies. For more on how Google handles this data, see Google\'s Privacy Policy at policies.google.com/privacy.',
+            text: 'We use Google Analytics (GA4) to understand how visitors use Exitus, such as page views, session activity, approximate location (country/city, derived from IP address), device type, and referring site. Google Analytics uses cookies and similar technologies to collect this information. This data is aggregated and used only to improve the site; we do not use it to individually identify you, and we do not sell it. You can opt out of Google Analytics tracking using the Google Analytics Opt-out Browser Add-on, or by adjusting your browser\'s cookie settings to block third-party cookies. For more on how Google handles this data, see Google\'s Privacy Policy at policies.google.com/privacy.',
           },
           {
             title: '10. External Links',
-            text: 'We link to third-party government websites, visa portals, and services for your convenience. We are not responsible for the content, accuracy, availability, or privacy policies of external sites. Links to government portals are provided as-is — always navigate directly to official sites when in doubt.',
+            text: 'We link to third-party government websites, visa portals, and services for your convenience. We are not responsible for the content, accuracy, availability, or privacy policies of external sites. Links to government portals are provided as-is, always navigate directly to official sites when in doubt.',
           },
           {
             title: '11. Prohibited Uses',
             text: 'You agree not to use Exitus to engage in or plan any illegal activity, including but not limited to: working on tourist visas where prohibited, tax evasion, or circumventing immigration law. We do not encourage or support any illegal activity.',
           },
           {
-            title: '12. Escalation — When to Seek Real Help',
+            title: '12. Escalation, When to Seek Real Help',
             text: 'If you are in danger, facing deportation, or need urgent immigration assistance, please contact: USCIS.gov for immigration status questions, IRS.gov/international for US tax obligations abroad (FBAR, FATCA), a licensed immigration attorney via AILA.org, or the US State Department emergency line for citizens abroad.',
           },
           {
@@ -112,7 +112,7 @@ export default function Terms() {
         </div>
 
         <p style={{ color: 'var(--gray)', fontSize: '0.85rem', textAlign: 'center', marginTop: 48 }}>
-          EXIT US — Emap Agent v1.0 | For general informational purposes only.<br />
+          EXIT US, Emap Agent v1.0 | For general informational purposes only.<br />
           Questions? Email us at{' '}
           <a href="mailto:polySW@proton.me" style={{ color: 'var(--purple)' }}>
             polySW@proton.me
