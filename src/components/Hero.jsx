@@ -7,7 +7,7 @@ export default function Hero({ onOpenChat }) {
         <div className="hero-badge">✈️ Your Global Relocation Guide</div>
         <h1>Ready to Exit <span>the West?</span></h1>
         <p>
-          Find the best country for you with Emap — your friendly AI relocation guide.
+          Find the best country for you with Emap, your friendly AI relocation guide.
           Discover where your income, lifestyle, and values align with a place you can truly call home.
         </p>
         <div className="hero-buttons">

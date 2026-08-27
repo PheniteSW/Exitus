@@ -18,7 +18,7 @@ export default function AboutSection() {
               are pushing people to explore a different path.
             </p>
             <p>
-              Exitus helps you figure out — based on who you actually are — which country fits your income, values,
+              Exitus helps you figure out, based on who you actually are, which country fits your income, values,
               family situation, and lifestyle. No guesswork, just real guidance.
             </p>
             <ul className="about-list">
