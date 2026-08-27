@@ -15,6 +15,7 @@ export default function Navbar({ onOpenChat, onOpenAuth }) {
   const links = [
     { label: 'Home', href: '#home' },
     { label: 'Features', href: '#features' },
+    { label: 'Demo', href: '#demo' },
     { label: 'Countries', href: '#destinations' },
     { label: 'Pricing', href: '#pricing' },
   ];

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Features from './components/Features';
+import DemoSection from './components/DemoSection';
 import Destinations from './components/Destinations';
 import SafetyAlerts from './components/SafetyAlerts';
 import AboutSection from './components/AboutSection';
@@ -128,6 +129,7 @@ function HomePage({ chatOpen, setChatOpen, initialMessage, setInitialMessage, on
       <main>
         <Hero onOpenChat={() => openChat()} />
         <Features />
+        <DemoSection />
         <AboutSection />
         <Destinations onOpenChat={openChat} />
         <SafetyAlerts />
