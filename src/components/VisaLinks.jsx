@@ -1,7 +1,7 @@
 const visaResources = [
   { country: '🇺🇸 Leaving the US', title: 'US State Dept Travel Advisories', desc: 'Official country-by-country safety ratings and travel notices.', url: 'https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories.html' },
   { country: '🇹🇭 Thailand', title: 'Thailand LTR Visa', desc: 'Long-Term Resident visa for remote workers & retirees. Up to 10 years.', url: 'https://ltr.boi.go.th/' },
-  { country: '🇲🇾 Malaysia', title: 'Malaysia MM2H', desc: 'Malaysia My Second Home program — long-term renewable visa.', url: 'https://www.mm2h.gov.my/' },
+  { country: '🇲🇾 Malaysia', title: 'Malaysia MM2H', desc: 'Malaysia My Second Home program, long-term renewable visa.', url: 'https://www.mm2h.gov.my/' },
   { country: '🇷🇼 Rwanda', title: 'Rwanda Online Business Hub', desc: 'Open a business in 24–48 hours. Least corrupt in Africa.', url: 'https://org.rdb.rw/' },
   { country: '🇲🇺 Mauritius', title: 'Mauritius Premium Visa', desc: '10-year residency with modern banking and territorial tax system.', url: 'https://www.edb.gov.mu/' },
   { country: '🇨🇻 Cape Verde', title: 'Cape Verde Digital Nomad Visa', desc: '1-2 year visa for remote workers earning $1,000+/month.', url: 'https://digitalnomads.capeverde.com/' },
@@ -19,7 +19,7 @@ export default function VisaLinks() {
       <div className="container">
         <div className="section-header">
           <h2>Visa & residency resources</h2>
-          <p>Direct links to official government portals and trusted resources — always go to the source.</p>
+          <p>Direct links to official government portals and trusted resources, always go to the source.</p>
         </div>
         <div className="visa-grid">
           {visaResources.map((v, i) => (

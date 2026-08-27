@@ -11,7 +11,7 @@ const DISCLAIMER_SEEN_KEY = 'exitus_disclaimer_seen';
 
 const OPENING_MESSAGE = {
   role: 'bot',
-  content: `🌍 Hey there, I'm Emap!\n\nReady to explore what life looks like beyond the West? Whether you're dreaming of beaches in Southeast Asia, vibrant cities in West Africa, or affordable culture in the Mediterranean — I'm here to help you figure out where YOU fit.\n\nLet's start simple: What matters most to you in your next home? (Cost of living, safety, healthcare, weather, language, culture, internet speed — tell me anything!)`,
+  content: `🌍 Hey there, I'm Emap!\n\nReady to explore what life looks like beyond the West? Whether you're dreaming of beaches in Southeast Asia, vibrant cities in West Africa, or affordable culture in the Mediterranean, I'm here to help you figure out where YOU fit.\n\nLet's start simple: What matters most to you in your next home? (Cost of living, safety, healthcare, weather, language, culture, internet speed, tell me anything!)`,
   time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
 };
 
@@ -30,7 +30,7 @@ function DisclaimerModal({ onAccept }) {
         {[
           {
             title: 'AI-generated guidance (Emap)',
-            text: "Emap's responses can be incomplete, outdated, or incorrect. Treat everything as a starting point for your own research — not a final answer or guarantee.",
+            text: "Emap's responses can be incomplete, outdated, or incorrect. Treat everything as a starting point for your own research, not a final answer or guarantee.",
           },
           {
             title: 'Safety & country information',
@@ -62,7 +62,7 @@ function DisclaimerModal({ onAccept }) {
             color: 'white', fontWeight: 700, fontSize: '0.95rem', border: 'none', cursor: 'pointer',
           }}
         >
-          I understand — Let's go 🌍
+          I understand, let's go 🌍
         </button>
       </div>
     </div>
@@ -144,7 +144,7 @@ export default function ChatWidget({ open, onClose, initialMessage }) {
     } catch {
       const errMsg = {
         role: 'bot',
-        content: 'Connection issue — please check your internet and try again.',
+        content: 'Connection issue, please check your internet and try again.',
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
       const final = [...newMessages, errMsg];

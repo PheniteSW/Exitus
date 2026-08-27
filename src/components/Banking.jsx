@@ -22,7 +22,7 @@ const cards = [
   {
     icon: '₿',
     title: 'Crypto & Stablecoins',
-    desc: 'USDC and USDT are useful in countries with volatile currencies. A practical hedge — not financial advice, always research local regulations.',
+    desc: 'USDC and USDT are useful in countries with volatile currencies. A practical hedge, not financial advice, always research local regulations.',
   },
   {
     icon: '🌐',
