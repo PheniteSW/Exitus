@@ -56,6 +56,31 @@ export default function Footer() {
           </div>
         </div>
 
+        <div style={{
+          display: 'flex', justifyContent: 'center', alignItems: 'center',
+          gap: 16, flexWrap: 'wrap', margin: '32px 0',
+        }}>
+          <a href="https://fazier.com/launches/exitusadvisor.org" target="_blank" rel="noopener noreferrer">
+            <img
+              src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=dark"
+              width="120"
+              alt="Fazier badge"
+            />
+          </a>
+          <a
+            href="https://www.producthunt.com/products/exitus?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-exitus-find-your-exit"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              alt="Exitus, Find Your EXIT - How to move abroad | Product Hunt"
+              width="250"
+              height="54"
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1235225&theme=light&t=1788035498342"
+            />
+          </a>
+        </div>
+
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Exitus. General information only, not legal or financial advice.</span>
           <span>Built for dreamers who want to live on their own terms. 🌍</span>
