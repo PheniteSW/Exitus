@@ -60,13 +60,6 @@ export default function Footer() {
           display: 'flex', justifyContent: 'center', alignItems: 'center',
           gap: 16, flexWrap: 'wrap', margin: '32px 0',
         }}>
-          <a href="https://fazier.com/launches/exitusadvisor.org" target="_blank" rel="noopener noreferrer">
-            <img
-              src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=dark"
-              width="120"
-              alt="Fazier badge"
-            />
-          </a>
           <a
             href="https://www.producthunt.com/products/exitus?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-exitus-find-your-exit"
             target="_blank"
